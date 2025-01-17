@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Legends Hero Counter</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Mobile Legends Hero Counter</h1>
-        <input type="text" id="search" placeholder="Search Hero..." onkeyup="searchHero()">
-        <div class="heroes-list" id="heroes-list"></div>
-        <div id="counter-heroes" class="counter-heroes">
-            <h2>Counter Heroes</h2>
-            <ul id="counter-list"></ul>
-        </div>
+    <div class="search-bar">
+        <input type="text" id="heroSearch" placeholder="Search for a hero...">
+    </div>
+    <div class="hero-container" id="heroContainer">
+        <!-- Hero cards will be dynamically added here -->
+    </div>
+
+    <div class="counter-container" id="counterContainer">
+        <h3>Counter Heroes:</h3>
+        <ul id="counterList">
+            <!-- Counter heroes will be displayed here -->
+        </ul>
     </div>
 
     <script src="script.js"></script>

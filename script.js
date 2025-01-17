@@ -98,43 +98,40 @@ const heroesData = [
 
 ];
 
-const heroContainer = document.getElementById('heroContainer');
-const counterList = document.getElementById('counterList');
-const heroSearch = document.getElementById('heroSearch');
+const heroContainer = document.getElementById("hero-container");
+const counterList = document.getElementById("counter-list");
 
-// Function to display hero cards
-function displayHeroes(heroes) {
-    heroContainer.innerHTML = '';
+// Function to render hero cards
+function renderHeroes(heroes) {
+    heroContainer.innerHTML = "";
     heroes.forEach(hero => {
-        const heroCard = document.createElement('div');
-        heroCard.classList.add('hero-card');
-        heroCard.innerHTML = `
+        const card = document.createElement("div");
+        card.classList.add("hero-card");
+        card.innerHTML = `
             <img src="${hero.image}" alt="${hero.name}">
-            <p>${hero.name}</p>
+            <h3>${hero.name}</h3>
         `;
-        heroCard.addEventListener('click', () => displayCounters(hero.counters));
-        heroContainer.appendChild(heroCard);
+        card.addEventListener("click", () => showCounters(hero));
+        heroContainer.appendChild(card);
     });
 }
 
-// Function to display counter heroes
-function displayCounters(counters) {
-    counterList.innerHTML = '';
-    counters.forEach(counter => {
-        const counterItem = document.createElement('li');
-        counterItem.textContent = counter;
-        counterList.appendChild(counterItem);
+// Function to show counter heroes
+function showCounters(hero) {
+    counterList.innerHTML = "";
+    hero.counters.forEach(counter => {
+        const listItem = document.createElement("li");
+        listItem.textContent = counter;
+        counterList.appendChild(listItem);
     });
 }
 
-// Search functionality
-heroSearch.addEventListener('input', () => {
-    const query = heroSearch.value.toLowerCase();
-    const filteredHeroes = heroesData.filter(hero =>
-        hero.name.toLowerCase().includes(query)
-    );
-    displayHeroes(filteredHeroes);
+// Search Functionality
+document.getElementById("search-bar").addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filteredHeroes = heroesData.filter(hero => hero.name.toLowerCase().includes(query));
+    renderHeroes(filteredHeroes);
 });
 
-// Initially display all heroes
-displayHeroes(heroesData);
+// Initial rendering
+renderHeroes(heroesData);

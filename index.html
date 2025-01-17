@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Legends Hero Counter</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="search-bar">
-        <input type="text" id="heroSearch" placeholder="Search for a hero...">
+    <!-- System Title -->
+    <div class="header">
+        <h1>Mobile Legends Hero Counter System</h1>
+        <input type="text" id="search-bar" placeholder="Search for Hero...">
     </div>
-    <div class="hero-container" id="heroContainer">
-        <!-- Hero cards will be dynamically added here -->
+    
+    <!-- Hero Cards Display -->
+    <div id="hero-container" class="hero-container">
+        <!-- Hero Cards Will Be Rendered Here -->
     </div>
 
-    <div class="counter-container" id="counterContainer">
-        <h3>Counter Heroes:</h3>
-        <ul id="counterList">
-            <!-- Counter heroes will be displayed here -->
-        </ul>
+    <!-- Display Counter Heroes -->
+    <div id="counter-heroes" class="counter-heroes">
+        <h2>Counter Heroes:</h2>
+        <ul id="counter-list"></ul>
     </div>
+
+    <!-- Copyright Footer -->
+    <footer>
+        <p>&copy; 2025 Mobile Legends Counter System. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

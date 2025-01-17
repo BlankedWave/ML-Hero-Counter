@@ -128,36 +128,40 @@ const heroesData = [
 
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
-    const heroesContainer = document.getElementById("hero-container");
-    const counterHeroesSection = document.getElementById("counter-heroes");
+const heroContainer = document.getElementById("hero-container");
+const counterList = document.getElementById("counter-list");
 
-    // Render Hero Cards
-    heroesData.forEach(hero => {
-        const heroCard = document.createElement('div');
-        heroCard.classList.add('hero-card');
-        heroCard.innerHTML = `
-            <img src="${hero.image}" alt="${hero.name}" class="hero-img">
-            <h4>${hero.name}</h4>
+// Function to render hero cards
+function renderHeroes(heroes) {
+    heroContainer.innerHTML = "";
+    heroes.forEach(hero => {
+        const card = document.createElement("div");
+        card.classList.add("hero-card");
+        card.innerHTML = `
+            <img src="${hero.image}" alt="${hero.name}">
+            <h3>${hero.name}</h3>
         `;
-
-        // Add a click event to each hero card
-        heroCard.addEventListener('click', () => {
-            displayCounters(hero);
-            counterHeroesSection.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        heroesContainer.appendChild(heroCard);
+        card.addEventListener("click", () => showCounters(hero));
+        heroContainer.appendChild(card);
     });
+}
 
-    function displayCounters(hero) {
-        const counterList = document.getElementById("counter-list");
-        counterList.innerHTML = ''; // Clear previous counters
+// Function to show counter heroes
+function showCounters(hero) {
+    counterList.innerHTML = "";
+    hero.counters.forEach(counter => {
+        const listItem = document.createElement("li");
+        listItem.textContent = counter;
+        counterList.appendChild(listItem);
+    });
+}
 
-        hero.counters.forEach(counter => {
-            const listItem = document.createElement('li');
-            listItem.textContent = counter;
-            counterList.appendChild(listItem);
-        });
-    }
+// Search Functionality
+document.getElementById("search-bar").addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filteredHeroes = heroesData.filter(hero => hero.name.toLowerCase().includes(query));
+    renderHeroes(filteredHeroes);
 });
+
+// Initial rendering
+renderHeroes(heroesData);

@@ -120,7 +120,7 @@ const heroesData = [
     { name: "Tigreal", image: "assets/images/tigreal.png", counters: ["Hayabusa", "Ling", "Lancelot"] },
     { name: "Atlas", image: "assets/images/atlas.png", counters: ["Wanwan", "Beatrix", "Melissa"] },
     { name: "Lolita", image: "assets/images/lolita.png", counters: ["Wanwan", "Melissa", "Beatrix"] },
-    { name: "Hylos", image: "assets/images/hylos.png", counters: ["Ling", "Wanwan", "Melissa"] },
+    { name: "Hylos", image: "assets/images/hylos.png", counters: ["Aldous", "Wanwan", "Melissa"] },
     { name: "Minotaur", image: "assets/images/minotaur.png", counters: ["Wanwan", "Melissa", "Beatrix"] },
     { name: "Akai", image: "assets/images/akai.png", counters: ["Ling", "Hayabusa", "Lancelot"] },
     { name: "Diggie", image: "assets/images/diggie.png", counters: ["Franco", "Atlas", "Khufra"] },

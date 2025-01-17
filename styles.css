@@ -5,6 +5,9 @@ body {
     padding: 0;
     background: #121212; /* Dark background for Mobile Legends theme */
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make sure the page takes at least full viewport height */
 }
 
 /* Header section */
@@ -36,6 +39,7 @@ body {
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
+    flex-grow: 1; /* Allow hero container to take available space */
 }
 
 /* Hero Card Design */
@@ -91,9 +95,8 @@ footer {
     background-color: #222;
     text-align: center;
     padding: 20px;
-    position: absolute;
+    margin-top: auto; /* This makes sure the footer stays at the bottom */
     width: 100%;
-    bottom: 0;
 }
 
 footer p {

@@ -1,7 +1,7 @@
 const heroesData = [
     // EXP Lane 
+    { name: "Lukas", image: "assets/images/lukas.png", counters: ["Balmond", "Leomord", "Masha"] },
     { name: "Balmond", image: "https://via.placeholder.com/400x200", counters: ["Alice", "Esmeralda", "Gord"] },
-    { name: "Alucard", image: "https://via.placeholder.com/400x200", counters: ["Saber", "Chou", "Minsitthar"] },
     { name: "Bane", image: "https://via.placeholder.com/400x200", counters: ["Pharsa", "Lunox", "Harith"] },
     { name: "Zilong", image: "https://via.placeholder.com/400x200", counters: ["Franco", "Khufra", "Tigreal"] },
     { name: "Freya", image: "https://via.placeholder.com/400x200", counters: ["Saber", "Gusion", "Helcurt"] },

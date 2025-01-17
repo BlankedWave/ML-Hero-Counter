@@ -1,5 +1,20 @@
 const heroesData = [
-    // EXP Lane 
+
+    { name: "Kadita", image: "assets/images/kadita.png", counters: ["Lancelot", "Chou", "Gord"] },
+    { name: "Esmeralda", image: "assets/images/esmeralda.png", counters: ["Balmond", "Alice", "Gord"] },
+    { name: "Faramis", image: "assets/images/faramis.png", counters: ["Natalia", "Gusion", "Chou"] },
+    { name: "Cecilion", image: "assets/images/cecilion.png", counters: ["Gusion", "Hayabusa", "Aldous"] },
+    { name: "Baxia", image: "assets/images/baxia.png", counters: ["Chou", "Lancelot", "Aldous"] },
+    { name: "Carmilla", image: "assets/images/carmilla.png", counters: ["Masha", "Aldous", "Chou"] },
+    { name: "Luo Yi", image: "assets/images/luoyi.png", counters: ["Natalia", "Gord", "Kaja"] },
+    { name: "Mathilda", image: "assets/images/mathilda.png", counters: ["Chou", "Aldous", "Lancelot"] },
+    { name: "Karrie", image: "assets/images/karrie.png", counters: ["Tanking", "Chou", "Aldous"] },
+    { name: "Xavier", image: "assets/images/xavier.png", counters: ["Natalia", "Chou", "Fanny"] },
+    { name: "Novaria", image: "assets/images/novaria.png", counters: ["Lylia", "Gord", "Harith"] },
+    { name: "Ixia", image: "assets/images/ixia.png", counters: ["Chou", "Lancelot", "Aldous"] },
+    { name: "Nolan", image: "assets/images/nolan.png", counters: ["Zilong", "Leomord", "Chou"] },
+    { name: "Cici", image: "assets/images/cici.png", counters: ["Masha", "Chou", "Leomord"] },
+    { name: "Chip", image: "assets/images/chip.png", counters: ["Gusion", "Aldous", "Hayabusa"] },
     { name: "Zhuxin", image: "assets/images/zhuxin.png", counters: ["Natalia", "Lancelot", "Chou"] },
     { name: "Suyou", image: "assets/images/suyou.png", counters: ["Gord", "Lylia", "Fanny"] },
     { name: "Lukas", image: "assets/images/lukas.png", counters: ["Balmond", "Leomord", "Masha"] },
@@ -45,21 +60,18 @@ const heroesData = [
     { name: "Fredrinn", image: "https://via.placeholder.com/400x200", counters: ["Wanwan", "Melissa", "Esmeralda"] },
     { name: "Joy", image: "https://via.placeholder.com/400x200", counters: ["Wanwan", "Melissa", "Karrie"] },
     { name: "Arlott", image: "https://via.placeholder.com/400x200", counters: ["Wanwan", "Lunox", "Esmeralda"] },
-    // Jungle
     { name: "Ling", image: "https://via.placeholder.com/400x200", counters: ["Franco", "Khufra", "Uranus"] },
     { name: "Lancelot", image: "https://via.placeholder.com/400x200", counters: ["Phoveus", "Khufra", "Tigreal"] },
     { name: "Karina", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Franco", "Ruby"] },
     { name: "Hayabusa", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Ruby", "Phoveus"] },
     { name: "Helcurt", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Franco"] },
-    { name: "Fanny", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Phoveus", "Tigreal"] },
+    { name: "Fanny", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Chou", "Saber"] },
     { name: "Gusion", image: "https://via.placeholder.com/400x200", counters: ["Franco", "Khufra", "Ruby"] },
     { name: "Alucard", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Ruby"] },
     { name: "Granger", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Natalia", "Helcurt"] },
     { name: "Roger", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Franco"] },
     { name: "Yi Sun-shin", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Natalia", "Ling"] },
     { name: "Moskov", image: "https://via.placeholder.com/400x200", counters: ["Natalia", "Helcurt", "Ling"] },
-
-    // Gold Lane
     { name: "Wanwan", image: "https://via.placeholder.com/400x200", counters: ["Natalia", "Ling", "Hayabusa"] },
     { name: "Melissa", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Ling", "Natalia"] },
     { name: "Lesley", image: "https://via.placeholder.com/400x200", counters: ["Natalia", "Ling", "Helcurt"] },
@@ -71,8 +83,6 @@ const heroesData = [
     { name: "Popol and Kupa", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Hayabusa", "Ling"] },
     { name: "Hanabi", image: "https://via.placeholder.com/400x200", counters: ["Natalia", "Ling", "Helcurt"] },
     { name: "Natan", image: "https://via.placeholder.com/400x200", counters: ["Saber", "Helcurt", "Chou"] },
-
-    // Mid Lane
     { name: "Pharsa", image: "https://via.placeholder.com/400x200", counters: ["Ling", "Saber", "Hayabusa"] },
     { name: "Kagura", image: "assets/images/kagura.png", counters: ["Chou", "Franco", "Helcurt"] },
     { name: "Lunox", image: "https://via.placeholder.com/400x200", counters: ["Esmeralda", "Thamuz", "Karrie"] },
@@ -85,8 +95,6 @@ const heroesData = [
     { name: "Yve", image: "https://via.placeholder.com/400x200", counters: ["Ling", "Saber", "Hayabusa"] },
     { name: "Harith", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Ruby"] },
     { name: "Zhask", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Franco", "Helcurt"] },
-
-    // Roam
     { name: "Franco", image: "https://via.placeholder.com/400x200", counters: ["Wanwan", "Beatrix", "Karrie"] },
     { name: "Khufra", image: "https://via.placeholder.com/400x200", counters: ["Ling", "Hayabusa", "Lancelot"] },
     { name: "Tigreal", image: "https://via.placeholder.com/400x200", counters: ["Hayabusa", "Ling", "Lancelot"] },

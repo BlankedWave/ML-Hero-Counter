@@ -51,7 +51,6 @@ const heroesData = [
     { name: "Helcurt", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Franco"] },
     { name: "Fanny", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Phoveus", "Tigreal"] },
     { name: "Gusion", image: "https://via.placeholder.com/400x200", counters: ["Franco", "Khufra", "Ruby"] },
-    { name: "Benedetta", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Tigreal", "Ruby"] },
     { name: "Alucard", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Ruby"] },
     { name: "Granger", image: "https://via.placeholder.com/400x200", counters: ["Khufra", "Natalia", "Helcurt"] },
     { name: "Roger", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Franco"] },

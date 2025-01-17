@@ -90,6 +90,15 @@ body {
     color: white;
 }
 
+/* Hide the iframe for background music */
+#background-music {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: none;
+}
+
+
 /* Footer */
 /* footer {
     background-color: #222;

@@ -98,6 +98,10 @@ body {
     border: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 
 /* Footer */
 /* footer {

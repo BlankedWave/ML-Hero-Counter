@@ -96,8 +96,7 @@ const heroesData = [
     { name: "Akai", image: "https://via.placeholder.com/400x200", counters: ["Ling", "Hayabusa", "Lancelot"] },
     { name: "Diggie", image: "https://via.placeholder.com/400x200", counters: ["Franco", "Atlas", "Khufra"] },
     { name: "Estes", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Natalia", "Ling"] }
-];
-    // Add more heroes as required
+
 ];
 
 const heroContainer = document.getElementById('heroContainer');

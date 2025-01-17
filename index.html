@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Legends Counter System</title>
+    <title>Mobile Legends Hero Counter</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Mobile Legends Counter Hero System</h1>
-        <input type="text" id="heroInput" placeholder="Enter a hero's name..." />
-        <button id="searchBtn">Search Counters</button>
-
-        <div id="results">
-            <!-- Search results will appear here -->
+        <h1>Mobile Legends Hero Counter</h1>
+        <input type="text" id="search" placeholder="Search Hero..." onkeyup="searchHero()">
+        <div class="heroes-list" id="heroes-list"></div>
+        <div id="counter-heroes" class="counter-heroes">
+            <h2>Counter Heroes</h2>
+            <ul id="counter-list"></ul>
         </div>
     </div>
-    <script src="scripts.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>

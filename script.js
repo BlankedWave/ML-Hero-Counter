@@ -72,7 +72,7 @@ const heroesData = [
 
     // Mid Lane
     { name: "Pharsa", image: "https://via.placeholder.com/400x200", counters: ["Ling", "Saber", "Hayabusa"] },
-    { name: "Kagura", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Franco", "Helcurt"] },
+    { name: "Kagura", image: "assets/images/kagura.png", counters: ["Chou", "Franco", "Helcurt"] },
     { name: "Lunox", image: "https://via.placeholder.com/400x200", counters: ["Esmeralda", "Thamuz", "Karrie"] },
     { name: "Eudora", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Helcurt", "Natalia"] },
     { name: "Vale", image: "https://via.placeholder.com/400x200", counters: ["Chou", "Khufra", "Franco"] },

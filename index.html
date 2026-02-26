@@ -3,306 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLBB | NEURAL-LINK PRO 2026</title>
+    <title>MLBB AURA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
-        
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: #010409;
-            color: #e6edf3;
-            overflow: hidden;
-        }
-
-        .neural-bg {
-            background-image: radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0);
-            background-size: 32px 32px;
-        }
-
-        .glass-panel {
-            background: rgba(13, 17, 23, 0.7);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(48, 54, 61, 0.8);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-        }
-
-        .hero-node {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-        }
-
-        .hero-node:hover {
-            border-color: #58a6ff;
-            background: rgba(88, 166, 255, 0.1);
-            transform: scale(1.02);
-        }
-
-        .hero-active {
-            border-color: #58a6ff !important;
-            background: rgba(88, 166, 255, 0.15) !important;
-            box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020617; color: #f8fafc; }
+        .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .hero-active { border-color: #3b82f6 !important; background: rgba(59, 130, 246, 0.15) !important; box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
         .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
-
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-        .scan-line {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #58a6ff, transparent);
-            animation: scan 3s linear infinite;
-            opacity: 0.3;
-        }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        @keyframes scanline { 0% { top: 0%; } 100% { top: 100%; } }
+        .scan-effect::after { content: ""; position: absolute; width: 100%; height: 2px; background: rgba(59, 130, 246, 0.5); top: 0; left: 0; animation: scanline 3s linear infinite; box-shadow: 0 0 15px #3b82f6; }
     </style>
 </head>
-<body class="neural-bg h-screen w-screen flex flex-col p-4">
+<body class="h-screen flex flex-col p-4 overflow-hidden">
 
-    <header class="flex justify-between items-center mb-6 px-4 bg-black/20 py-3 rounded-2xl border border-white/5">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-                <i data-lucide="brain-circuit" class="w-6 h-6 text-white"></i>
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-4 px-6 py-4 glass-card rounded-3xl border-b border-blue-500/10">
+        <div class="flex items-center gap-4">
+            <div class="p-3 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-lg shadow-blue-500/20">
+                <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
             </div>
             <div>
-                <h1 class="text-xl font-bold tracking-tight text-white">NEURAL_LINK <span class="text-blue-500 text-sm">v2026.FANDOM</span></h1>
-                <div class="flex items-center gap-2">
-                    <span id="connIndicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    <p id="connText" class="text-[9px] uppercase tracking-widest text-slate-500 font-bold">Local Wiki Cache Active</p>
-                </div>
+                <h1 class="text-xl font-extrabold tracking-tight italic">MLBB <span class="text-blue-500">AURA</span></h1>
+                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-[0.3em]">Advanced Ultra-Responsive Analysis</p>
             </div>
         </div>
-        <div class="flex gap-4 items-center">
-            <div class="hidden sm:block text-right">
-                <div class="text-[10px] text-slate-500 font-bold">MANUAL OVERRIDE</div>
-                <div class="text-xs text-blue-400 font-mono">INTEL_VER_0226</div>
-            </div>
-            <div class="divider divider-horizontal mx-0"></div>
-            <div id="heroTotal" class="text-2xl font-black text-white">000</div>
+        <div class="bg-slate-800/50 px-5 py-2 rounded-full border border-white/5 flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            <span class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Neural Link: ACTIVE</span>
         </div>
     </header>
 
-    <main class="flex-1 flex gap-6 overflow-hidden">
-        <section class="w-full md:w-[380px] flex flex-col gap-4">
-            <div class="glass-panel rounded-2xl p-4 flex flex-col gap-4 flex-1 overflow-hidden">
-                <div class="relative">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
-                    <input id="search" type="text" placeholder="SEARCH IDENTITY..." class="w-full bg-black/60 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-sm focus:border-blue-500 outline-none transition-all text-white">
+    <main class="flex-1 flex gap-4 overflow-hidden">
+        <!-- Sidebar: Official Hero Registry -->
+        <aside class="w-80 flex flex-col gap-4">
+            <div class="glass-card rounded-3xl p-5 flex-1 flex flex-col overflow-hidden">
+                <div class="relative mb-4">
+                    <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                    <input id="heroSearch" type="text" placeholder="Search 132 Heroes..." class="w-full bg-slate-900/50 border border-slate-700/50 rounded-2xl py-3 pl-11 pr-4 text-sm focus:border-blue-500 outline-none transition-all">
                 </div>
-                
-                <div class="flex gap-1 overflow-x-auto pb-2 custom-scroll">
-                    <button onclick="setRole('ALL')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">ALL</button>
-                    <button onclick="setRole('Tank')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">TANK</button>
-                    <button onclick="setRole('Assassin')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">ASN</button>
-                    <button onclick="setRole('Mage')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">MAGE</button>
-                    <button onclick="setRole('Marksman')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">MM</button>
-                    <button onclick="setRole('Fighter')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">FIG</button>
-                    <button onclick="setRole('Support')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">SUP</button>
-                </div>
-
-                <div id="heroGrid" class="grid grid-cols-3 gap-3 overflow-y-auto custom-scroll pr-2">
-                    <!-- Loaded via JS -->
+                <div id="heroList" class="flex-1 overflow-y-auto space-y-1 pr-2 custom-scroll">
+                    <!-- Dynamic List -->
                 </div>
             </div>
-        </section>
+        </aside>
 
-        <section class="hidden md:flex flex-1 flex-col gap-4">
-            <div id="displayArea" class="glass-panel rounded-3xl p-10 flex items-center gap-10 relative overflow-hidden h-[320px]">
-                <div class="scan-line"></div>
-                <div id="heroBackdrop" class="absolute right-0 top-0 h-full w-[60%] opacity-10 pointer-events-none bg-center bg-cover transition-all duration-700 grayscale"></div>
+        <!-- Main Workspace -->
+        <section class="flex-1 flex flex-col gap-4 overflow-hidden">
+            <!-- Selected Hero Display -->
+            <div id="heroPortal" class="glass-card rounded-3xl p-8 relative overflow-hidden flex items-center justify-between min-h-[160px]">
+                <div id="heroBanner" class="absolute inset-0 opacity-10 bg-cover bg-center transition-all duration-1000 blur-md"></div>
                 
                 <div class="relative z-10">
-                    <div class="w-40 h-40 rounded-2xl border-2 border-blue-500/20 p-1 bg-slate-900 shadow-2xl overflow-hidden group">
-                        <img id="heroPortrait" src="https://ui-avatars.com/api/?name=?&background=0d1117&color=58a6ff" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    <div class="flex gap-2 mb-2">
+                        <span id="roleBadge" class="bg-blue-500/10 text-blue-400 text-[10px] font-black px-3 py-1 rounded-full border border-blue-500/20 uppercase tracking-wider">Registry Standing By</span>
+                        <span id="laneBadge" class="bg-slate-800 text-slate-400 text-[10px] font-black px-3 py-1 rounded-full border border-white/5 uppercase tracking-wider">Sector Alpha</span>
                     </div>
+                    <h2 id="heroName" class="text-6xl font-black italic tracking-tighter uppercase text-white">READY_</h2>
+                    <p id="heroStatusText" class="text-slate-500 mt-1 font-medium text-sm">Select a hero to pull tactical data from the MLBB Fandom Archive.</p>
                 </div>
 
-                <div class="relative z-10 flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                        <span id="heroRole" class="text-[10px] font-black bg-blue-500/10 text-blue-400 border border-blue-500/30 px-3 py-1 rounded-full uppercase tracking-tighter">SELECT HERO</span>
-                        <span id="heroLane" class="text-[10px] font-black bg-purple-500/10 text-purple-400 border border-purple-500/30 px-3 py-1 rounded-full uppercase tracking-tighter">-</span>
-                    </div>
-                    <h2 id="heroName" class="text-6xl font-black italic tracking-tighter uppercase mb-4 text-white drop-shadow-md">TARGET_UNK</h2>
-                    
-                    <div class="flex gap-4">
-                        <button id="analyzeBtn" disabled onclick="getCounterData()" class="btn btn-primary btn-md rounded-xl px-10 border-none bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-900/20">
-                            <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
-                            GENERATE COUNTERS
-                        </button>
-                        <div id="loadingStatus" class="hidden items-center gap-2 text-blue-400 text-xs font-bold animate-pulse">
-                            <span class="loading loading-spinner loading-xs"></span>
-                            PROCESSING...
-                        </div>
-                    </div>
+                <div class="relative z-10">
+                    <button id="scanBtn" onclick="generateCounterIntel()" disabled class="btn btn-primary btn-lg rounded-2xl h-16 px-10 shadow-xl shadow-blue-500/30 font-black tracking-widest">
+                        <i data-lucide="radio" class="w-5 h-5 mr-2 animate-pulse"></i>
+                        DECRYPT COUNTERS
+                    </button>
                 </div>
             </div>
 
-            <div id="counterOutput" class="flex-1 grid grid-cols-2 gap-4 overflow-y-auto custom-scroll">
-                <div class="col-span-2 flex flex-col items-center justify-center opacity-20 py-20">
-                    <i data-lucide="database" class="w-16 h-16 mb-4"></i>
-                    <p class="font-bold tracking-widest text-sm uppercase">Neural Link Idle. Select Target Above.</p>
+            <!-- Intelligence Result -->
+            <div id="intelOutput" class="flex-1 overflow-hidden relative">
+                <div id="emptyState" class="h-full flex flex-col items-center justify-center glass-card rounded-3xl opacity-30 italic p-10 text-center">
+                    <i data-lucide="database" class="w-16 h-16 mb-4 text-blue-500/50"></i>
+                    <p class="text-xl uppercase font-black tracking-widest">Mainframe Idle</p>
+                    <p class="text-sm mt-2">Awaiting target selection to initiate counter-strategy calculation.</p>
+                </div>
+
+                <div id="intelResults" class="hidden h-full grid grid-cols-12 gap-4 overflow-y-auto pr-2 custom-scroll">
+                    <!-- Counter Heroes -->
+                    <div class="col-span-7 glass-card rounded-3xl p-6 border-l-4 border-blue-500">
+                        <h3 class="text-xs font-black text-blue-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                            <i data-lucide="crosshair" class="w-4 h-4"></i> High-Priority Counter Picks
+                        </h3>
+                        <div id="counterHeroes" class="grid grid-cols-1 gap-3">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Gear & Strategy -->
+                    <div class="col-span-5 flex flex-col gap-4">
+                        <div class="glass-card rounded-3xl p-6 border-l-4 border-orange-500">
+                            <h3 class="text-xs font-black text-orange-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                                <i data-lucide="shield-alert" class="w-4 h-4"></i> Anti-Build & Spells
+                            </h3>
+                            <div id="counterGear" class="space-y-4">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <script type="module">
-        // Manually updated list based on Mobile Legends Fandom Wiki (Latest 2026 data)
-        const HEROES_CACHE = [
-            { id: 1, name: "Lukas", role: "Fighter", lane: "Exp Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/c8/Hero_Lukas.png" },
-            { id: 2, name: "Suyou", role: "Assassin/Fighter", lane: "Exp Lane/Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/a/af/Hero_Suyou.png" },
-            { id: 3, name: "Zhuxin", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/87/Hero_Zhuxin.png" },
-            { id: 4, name: "Chip", role: "Support/Tank", lane: "Roam", img: "https://static.wikia.nocookie.net/mobile-legends/images/7/75/Hero_Chip.png" },
-            { id: 5, name: "Cici", role: "Fighter", lane: "Exp Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Hero_Cici.png" },
-            { id: 6, name: "Nolan", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/4/4c/Hero_Nolan.png" },
-            { id: 7, name: "Ixia", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/07/Hero_Ixia.png" },
-            { id: 8, name: "Novaria", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/8e/Hero_Novaria.png" },
-            { id: 9, name: "Arlott", role: "Fighter/Assassin", lane: "Exp Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/4/4b/Hero_Arlott.png" },
-            { id: 10, name: "Fredrinn", role: "Tank/Fighter", lane: "Jungle/Exp", img: "https://static.wikia.nocookie.net/mobile-legends/images/f/f6/Hero_Fredrinn.png" },
-            { id: 11, name: "Joy", role: "Assassin", lane: "Jungle/Mid", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/ca/Hero_Joy.png" },
-            { id: 12, name: "Edith", role: "Tank/Marksman", lane: "Roam/Gold", img: "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Hero_Edith.png" },
-            { id: 13, name: "Yve", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/c5/Hero_Yve.png" },
-            { id: 14, name: "Beatrix", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Hero_Beatrix.png" },
-            { id: 15, name: "Valentina", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/cc/Hero_Valentina.png" },
-            { id: 16, name: "Julian", role: "Fighter/Mage", lane: "Jungle/Exp", img: "https://static.wikia.nocookie.net/mobile-legends/images/e/e0/Hero_Julian.png" },
-            { id: 17, name: "Ling", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/7/7b/Hero_Ling.png" },
-            { id: 18, name: "Fanny", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/9/90/Hero_Fanny.png" },
-            { id: 19, name: "Gusion", role: "Assassin/Mage", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Hero_Gusion.png" },
-            { id: 20, name: "Hayabusa", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Hero_Hayabusa.png" },
-            { id: 21, name: "Lancelot", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/03/Hero_Lancelot.png" },
-            { id: 22, name: "Paquito", role: "Fighter", lane: "Jungle/Exp", img: "https://static.wikia.nocookie.net/mobile-legends/images/1/10/Hero_Paquito.png" },
-            { id: 23, name: "Chou", role: "Fighter", lane: "Exp/Roam", img: "https://static.wikia.nocookie.net/mobile-legends/images/a/a8/Hero_Chou.png" },
-            { id: 24, name: "Selena", role: "Assassin/Mage", lane: "Roam/Mid", img: "https://static.wikia.nocookie.net/mobile-legends/images/d/df/Hero_Selena.png" },
-            { id: 25, name: "Wanwan", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/01/Hero_Wanwan.png" },
-            { id: 26, name: "Karrie", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/6/69/Hero_Karrie.png" },
-            { id: 27, name: "Lunox", role: "Mage", lane: "Mid/Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/2/23/Hero_Lunox.png" },
-            { id: 28, name: "Benedetta", role: "Assassin", lane: "Exp/Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/87/Hero_Benedetta.png" },
-            { id: 29, name: "Lylia", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/84/Hero_Lylia.png" },
-            { id: 30, name: "Tigreal", role: "Tank", lane: "Roam", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/02/Hero_Tigreal.png" }
-        ];
-
-        let selectedHero = null;
-        let currentRole = "ALL";
         const apiKey = "";
+        let selectedHero = null;
 
-        function initApp() {
-            renderGrid();
-            document.getElementById('heroTotal').innerText = HEROES_CACHE.length.toString().padStart(3, '0');
+        // Official Registry based on Fandom List
+        const HEROES = [
+            { name: "Miya", role: "Marksman", lane: "Gold Lane" },
+            { name: "Balmond", role: "Fighter", lane: "Jungle/EXP Lane" },
+            { name: "Saber", role: "Assassin", lane: "Jungle/Roaming" },
+            { name: "Alice", role: "Tank/Mage", lane: "EXP Lane/Jungle" },
+            { name: "Nana", role: "Mage", lane: "Mid Lane" },
+            { name: "Tigreal", role: "Tank", lane: "Roaming" },
+            { name: "Alucard", role: "Fighter/Assassin", lane: "Jungle" },
+            { name: "Karina", role: "Assassin", lane: "Jungle" },
+            { name: "Akai", role: "Tank", lane: "Roaming" },
+            { name: "Franco", role: "Tank", lane: "Roaming" },
+            { name: "Bane", role: "Fighter/Mage", lane: "Jungle/EXP Lane" },
+            { name: "Bruno", role: "Marksman", lane: "Gold Lane" },
+            { name: "Clint", role: "Marksman", lane: "Gold Lane" },
+            { name: "Rafaela", role: "Support", lane: "Roaming" },
+            { name: "Eudora", role: "Mage", lane: "Mid Lane" },
+            { name: "Zilong", role: "Fighter/Assassin", lane: "EXP Lane" },
+            { name: "Fanny", role: "Assassin", lane: "Jungle" },
+            { name: "Layla", role: "Marksman", lane: "Gold Lane" },
+            { name: "Minotaur", role: "Tank/Support", lane: "Roaming" },
+            { name: "Lolita", role: "Support/Tank", lane: "Roaming" },
+            { name: "Hayabusa", role: "Assassin", lane: "Jungle" },
+            { name: "Freya", role: "Fighter", lane: "EXP Lane/Jungle" },
+            { name: "Gord", role: "Mage", lane: "Mid Lane" },
+            { name: "Natalia", role: "Assassin", lane: "Jungle/Roaming" },
+            { name: "Kagura", role: "Mage", lane: "Mid Lane" },
+            { name: "Chou", role: "Fighter", lane: "EXP Lane/Roaming" },
+            { name: "Sun", role: "Fighter", lane: "EXP Lane/Jungle" },
+            { name: "Alpha", role: "Fighter", lane: "Jungle/EXP Lane" },
+            { name: "Ruby", role: "Fighter", lane: "EXP Lane" },
+            { name: "Yi Sun-shin", role: "Assassin/Marksman", lane: "Jungle" },
+            { name: "Moskov", role: "Marksman", lane: "Gold Lane" },
+            { name: "Johnson", role: "Tank/Support", lane: "Roaming" },
+            { name: "Cyclops", role: "Mage", lane: "Mid Lane" },
+            { name: "Estes", role: "Support", lane: "Roaming" },
+            { name: "Hilda", role: "Fighter/Tank", lane: "Roaming/EXP Lane" },
+            { name: "Aurora", role: "Mage", lane: "Mid Lane" },
+            { name: "Lapu-Lapu", role: "Fighter", lane: "EXP Lane" },
+            { name: "Vexana", role: "Mage", lane: "Mid Lane" },
+            { name: "Roger", role: "Fighter/Marksman", lane: "Jungle" },
+            { name: "Karrie", role: "Marksman", lane: "Gold Lane" },
+            { name: "Gatotkaca", role: "Tank/Fighter", lane: "Roaming/EXP Lane" },
+            { name: "Harley", role: "Assassin/Mage", lane: "Jungle/Mid Lane" },
+            { name: "Irithel", role: "Marksman", lane: "Gold Lane" },
+            { name: "Grock", role: "Tank/Fighter", lane: "Roaming" },
+            { name: "Argus", role: "Fighter", lane: "EXP Lane" },
+            { name: "Odette", role: "Mage", lane: "Mid Lane" },
+            { name: "Lancelot", role: "Assassin", lane: "Jungle" },
+            { name: "Diggie", role: "Support", lane: "Roaming" },
+            { name: "Hylos", role: "Tank", lane: "Roaming" },
+            { name: "Zhask", role: "Mage", lane: "Mid Lane" },
+            { name: "Helcurt", role: "Assassin", lane: "Jungle/Roaming" },
+            { name: "Pharsa", role: "Mage", lane: "Mid Lane" },
+            { name: "Lesley", role: "Marksman/Assassin", lane: "Gold Lane" },
+            { name: "Jawhead", role: "Fighter", lane: "Roaming/EXP Lane" },
+            { name: "Angela", role: "Support", lane: "Roaming" },
+            { name: "Gusion", role: "Assassin", lane: "Jungle/Mid Lane" },
+            { name: "Valir", role: "Mage", lane: "Mid Lane" },
+            { name: "Martis", role: "Fighter", lane: "Jungle/EXP Lane" },
+            { name: "Uranus", role: "Tank", lane: "EXP Lane" },
+            { name: "Hanabi", role: "Marksman", lane: "Gold Lane" },
+            { name: "Chang'e", role: "Mage", lane: "Mid Lane" },
+            { name: "Kaja", role: "Support/Fighter", lane: "Roaming" },
+            { name: "Selena", role: "Assassin/Mage", lane: "Mid Lane/Roaming" },
+            { name: "Aldous", role: "Fighter", lane: "EXP Lane" },
+            { name: "Claude", role: "Marksman", lane: "Gold Lane" },
+            { name: "Vale", role: "Mage", lane: "Mid Lane" },
+            { name: "Leomord", role: "Fighter", lane: "Jungle" },
+            { name: "Lunox", role: "Mage", lane: "Mid Lane" },
+            { name: "Hanzo", role: "Assassin", lane: "Jungle" },
+            { name: "Belerick", role: "Tank", lane: "Roaming" },
+            { name: "Kimmy", role: "Marksman/Mage", lane: "Mid Lane/Gold Lane" },
+            { name: "Thamuz", role: "Fighter", lane: "EXP Lane" },
+            { name: "Harith", role: "Mage", lane: "Gold Lane/Mid Lane" },
+            { name: "Minsitthar", role: "Fighter", lane: "EXP Lane/Roaming" },
+            { name: "Kadita", role: "Mage/Assassin", lane: "Mid Lane" },
+            { name: "Faramis", role: "Support/Mage", lane: "Mid Lane/Roaming" },
+            { name: "Badang", role: "Fighter", lane: "EXP Lane/Roaming" },
+            { name: "Khufra", role: "Tank", lane: "Roaming" },
+            { name: "Granger", role: "Marksman", lane: "Gold Lane" },
+            { name: "Guinevere", role: "Fighter", lane: "EXP Lane" },
+            { name: "Esmeralda", role: "Tank/Mage", lane: "EXP Lane" },
+            { name: "Terizla", role: "Fighter/Tank", lane: "EXP Lane" },
+            { name: "X.Borg", role: "Fighter", lane: "EXP Lane" },
+            { name: "Ling", role: "Assassin", lane: "Jungle" },
+            { name: "Dyrroth", role: "Fighter", lane: "EXP Lane/Jungle" },
+            { name: "Lylia", role: "Mage", lane: "Mid Lane" },
+            { name: "Baxia", role: "Tank", lane: "Jungle/Roaming" },
+            { name: "Masha", role: "Fighter/Tank", lane: "EXP Lane" },
+            { name: "Wanwan", role: "Marksman", lane: "Gold Lane" },
+            { name: "Silvanna", role: "Fighter", lane: "EXP Lane" },
+            { name: "Cecilion", role: "Mage", lane: "Mid Lane" },
+            { name: "Carmilla", role: "Support/Tank", lane: "Roaming" },
+            { name: "Atlas", role: "Tank", lane: "Roaming" },
+            { name: "Popol and Kupa", role: "Marksman", lane: "Jungle/Gold Lane" },
+            { name: "Yu Zhong", role: "Fighter", lane: "EXP Lane" },
+            { name: "Luo Yi", role: "Mage", lane: "Mid Lane" },
+            { name: "Benedetta", role: "Assassin/Fighter", lane: "EXP Lane" },
+            { name: "Khaleed", role: "Fighter", lane: "Roaming/EXP Lane" },
+            { name: "Barats", role: "Tank/Fighter", lane: "Jungle" },
+            { name: "Brody", role: "Marksman", lane: "Gold Lane" },
+            { name: "Yve", role: "Mage", lane: "Mid Lane" },
+            { name: "Mathilda", role: "Support/Assassin", lane: "Roaming" },
+            { name: "Paquito", role: "Fighter/Assassin", lane: "EXP Lane" },
+            { name: "Gloo", role: "Tank", lane: "EXP Lane/Roaming" },
+            { name: "Beatrix", role: "Marksman", lane: "Gold Lane" },
+            { name: "Phoveus", role: "Fighter", lane: "EXP Lane" },
+            { name: "Natan", role: "Marksman", lane: "Gold Lane" },
+            { name: "Aulus", role: "Fighter", lane: "Jungle" },
+            { name: "Aamon", role: "Assassin", lane: "Jungle" },
+            { name: "Valentina", role: "Mage", lane: "Mid Lane" },
+            { name: "Edith", role: "Tank/Marksman", lane: "EXP Lane/Roaming" },
+            { name: "Floryn", role: "Support", lane: "Roaming" },
+            { name: "Yin", role: "Fighter/Assassin", lane: "Jungle/EXP Lane" },
+            { name: "Melissa", role: "Marksman", lane: "Gold Lane" },
+            { name: "Xavier", role: "Mage", lane: "Mid Lane" },
+            { name: "Julian", role: "Assassin/Fighter", lane: "Jungle/EXP Lane" },
+            { name: "Fredrinn", role: "Fighter/Tank", lane: "Jungle" },
+            { name: "Joy", role: "Assassin", lane: "Jungle" },
+            { name: "Novaria", role: "Mage", lane: "Mid Lane" },
+            { name: "Arlott", role: "Fighter/Assassin", lane: "EXP Lane" },
+            { name: "Ixia", role: "Marksman", lane: "Gold Lane" },
+            { name: "Nolan", role: "Assassin", lane: "Jungle" },
+            { name: "Cici", role: "Fighter", lane: "EXP Lane" },
+            { name: "Chip", role: "Support/Tank", lane: "Roaming" },
+            { name: "Zhuxin", role: "Mage", lane: "Mid Lane" },
+            { name: "Suyou", role: "Assassin/Fighter", lane: "Jungle" },
+            { name: "Lukas", role: "Fighter", lane: "EXP Lane/Jungle" },
+            { name: "Kalea", role: "Support/Fighter", lane: "Roaming" },
+            { name: "Zetian", role: "Mage", lane: "Mid Lane" },
+            { name: "Obsidia", role: "Marksman", lane: "Gold Lane" },
+            { name: "Sora", role: "Fighter/Assassin", lane: "EXP Lane" },
+            { name: "Marcel", role: "Support", lane: "Roaming" }
+        ].sort((a,b) => a.name.localeCompare(b.name));
+
+        function init() {
+            renderList();
             lucide.createIcons();
         }
 
-        function renderGrid() {
-            const grid = document.getElementById('heroGrid');
-            const query = document.getElementById('search').value.toLowerCase();
-            
-            const filtered = HEROES_CACHE.filter(h => {
-                const matchesRole = currentRole === "ALL" || h.role.includes(currentRole);
-                const matchesSearch = h.name.toLowerCase().includes(query);
-                return matchesRole && matchesSearch;
-            }).sort((a,b) => a.name.localeCompare(b.name));
+        function renderList() {
+            const list = document.getElementById('heroList');
+            const search = document.getElementById('heroSearch').value.toLowerCase();
+            const filtered = HEROES.filter(h => h.name.toLowerCase().includes(search));
 
-            grid.innerHTML = filtered.map(h => `
-                <div onclick="selectHero('${h.id}')" 
-                     class="hero-node glass-panel rounded-xl p-2 cursor-pointer text-center group ${selectedHero?.id === h.id ? 'hero-active' : ''}">
-                    <div class="aspect-square rounded-lg overflow-hidden bg-slate-800 mb-2 border border-white/5">
-                        <img src="${h.img}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
-                             onerror="this.src='https://ui-avatars.com/api/?name=${h.name}&background=1e293b&color=3b82f6'">
+            list.innerHTML = filtered.map(h => `
+                <div onclick="selectHero('${h.name}')" class="flex justify-between items-center px-4 py-3 rounded-xl cursor-pointer hover:bg-blue-500/10 border border-transparent transition-all group ${selectedHero?.name === h.name ? 'hero-active' : ''}">
+                    <div class="flex flex-col">
+                        <p class="text-sm font-bold ${selectedHero?.name === h.name ? 'text-blue-400' : 'text-slate-300'} group-hover:text-blue-400 transition-colors uppercase tracking-tight">${h.name}</p>
+                        <p class="text-[8px] text-slate-600 font-bold uppercase tracking-widest">${h.lane.split('/')[0]}</p>
                     </div>
-                    <div class="text-[9px] font-black uppercase tracking-tighter truncate text-slate-400 group-hover:text-white">${h.name}</div>
+                    <i data-lucide="chevron-right" class="w-3 h-3 text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                 </div>
             `).join('');
+            lucide.createIcons();
         }
 
-        window.selectHero = (id) => {
-            const h = HEROES_CACHE.find(x => x.id == id);
-            selectedHero = h;
+        window.selectHero = (name) => {
+            selectedHero = HEROES.find(h => h.name === name);
+            document.getElementById('heroName').innerText = selectedHero.name;
+            document.getElementById('roleBadge').innerText = selectedHero.role;
+            document.getElementById('laneBadge').innerText = selectedHero.lane;
+            document.getElementById('heroStatusText').innerText = `Target identified. Analyzing weak points in ${selectedHero.lane} dynamics...`;
             
-            document.getElementById('heroName').innerText = h.name;
-            document.getElementById('heroRole').innerText = h.role;
-            document.getElementById('heroLane').innerText = h.lane;
-            document.getElementById('heroPortrait').src = h.img;
-            document.getElementById('heroBackdrop').style.backgroundImage = `url(${h.img})`;
-            document.getElementById('analyzeBtn').disabled = false;
-            
-            renderGrid();
+            const banner = document.getElementById('heroBanner');
+            banner.style.backgroundImage = `url(https://mobile-legends.fandom.com/wiki/Special:FilePath/${selectedHero.name.replace(/\s+/g, '_')}_Splash.jpg)`;
+
+            document.getElementById('scanBtn').disabled = false;
+            renderList();
         };
 
-        window.setRole = (role) => {
-            currentRole = role;
-            document.querySelectorAll('.role-btn').forEach(b => {
-                b.classList.remove('btn-primary');
-                if(b.innerText.includes(role.toUpperCase().substring(0,3))) b.classList.add('btn-primary');
-            });
-            renderGrid();
-        };
+        async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`Status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (retries > 0) {
+                    await new Promise(res => setTimeout(res, delay));
+                    return fetchWithRetry(url, options, retries - 1, delay * 2);
+                }
+                throw error;
+            }
+        }
 
-        window.getCounterData = async () => {
-            const out = document.getElementById('counterOutput');
-            const loader = document.getElementById('loadingStatus');
-            const btn = document.getElementById('analyzeBtn');
-
-            loader.classList.remove('hidden');
-            loader.classList.add('flex');
+        window.generateCounterIntel = async () => {
+            if (!selectedHero) return;
+            const emptyState = document.getElementById('emptyState');
+            const results = document.getElementById('intelResults');
+            const btn = document.getElementById('scanBtn');
+            const intelOutput = document.getElementById('intelOutput');
+            
+            btn.classList.add('loading');
             btn.disabled = true;
-            out.innerHTML = '';
+            intelOutput.classList.add('scan-effect');
 
-            const systemPrompt = `You are a high-level MLBB Analyst. For the hero: ${selectedHero.name}. 
-            Provide 2-4 professional-grade counter picks. 
-            Return JSON ONLY: { "results": [{ "name": "Hero Name", "why": "Explanation focusing on mechanics", "item": "Must-buy counter item" }] }`;
+            const systemPrompt = `You are MLBB AURA, a top-tier tactical analyzer for Mobile Legends.
+            Target: ${selectedHero.name} (Role: ${selectedHero.role}, Lane: ${selectedHero.lane}).
+            Provide the ultimate counter strategy for the early 2026 meta.
+            JSON Format:
+            {
+                "heroes": [{"name": "Hero Name", "logic": "Why they win"}],
+                "items": [{"name": "Item Name", "desc": "Passive explanation"}],
+                "spell": {"name": "Spell", "why": "Utility description"},
+                "emblem": {"name": "Emblem Set", "talents": ["Talent A", "Talent B"]}
+            }`;
 
             try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                const raw = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Best meta counters for ${selectedHero.name}` }] }],
+                        contents: [{ parts: [{ text: `Counter intelligence for ${selectedHero.name}` }] }],
                         systemInstruction: { parts: [{ text: systemPrompt }] },
                         generationConfig: { responseMimeType: "application/json" }
                     })
                 });
 
-                const data = await res.json();
-                const json = JSON.parse(data.candidates[0].content.parts[0].text);
+                const data = JSON.parse(raw.candidates[0].content.parts[0].text);
+                emptyState.classList.add('hidden');
+                results.classList.remove('hidden');
 
-                out.innerHTML = json.results.map(r => `
-                    <div class="glass-panel rounded-2xl p-6 border-t-2 border-blue-500/30 hover:bg-white/5 transition-all">
-                        <div class="flex justify-between items-center mb-4">
-                            <h4 class="text-xl font-black italic uppercase text-white">${r.name}</h4>
+                document.getElementById('counterHeroes').innerHTML = data.heroes.map(h => `
+                    <div class="p-4 bg-slate-900/50 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-black text-white text-sm uppercase italic tracking-wider">${h.name}</h4>
+                            <span class="text-[8px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20 font-bold uppercase">Hard Counter</span>
                         </div>
-                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">${r.why}</p>
-                        <div class="flex items-center gap-3 bg-blue-500/5 p-3 rounded-xl border border-blue-500/10">
-                            <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i>
-                            <div>
-                                <div class="text-[8px] font-black text-blue-500 uppercase">Strategic Item</div>
-                                <div class="text-xs font-bold text-slate-200">${r.item}</div>
-                            </div>
-                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed font-medium">${h.logic}</p>
                     </div>
                 `).join('');
-                
+
+                document.getElementById('counterGear').innerHTML = `
+                    <div class="p-4 bg-orange-500/5 border border-orange-500/20 rounded-2xl">
+                        <p class="text-[9px] font-black text-orange-500 uppercase mb-2">Recommended Spell</p>
+                        <p class="text-sm font-black text-white uppercase italic">${data.spell.name}</p>
+                        <p class="text-[10px] text-slate-400 mt-1">${data.spell.why}</p>
+                    </div>
+                    ${data.items.map(item => `
+                        <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                            <p class="text-[9px] font-black text-slate-500 uppercase mb-1">Counter Item</p>
+                            <p class="text-xs font-bold text-slate-200 uppercase">${item.name}</p>
+                            <p class="text-[10px] text-slate-500 mt-1 leading-tight italic">"${item.desc}"</p>
+                        </div>
+                    `).join('')}
+                    <div class="p-4 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl">
+                        <p class="text-[9px] font-black text-indigo-400 uppercase mb-2">Emblem Matrix</p>
+                        <p class="text-xs font-black text-white mb-2 italic underline">${data.emblem.name}</p>
+                        <div class="flex flex-wrap gap-1">
+                            ${data.emblem.talents.map(t => `<span class="text-[8px] bg-slate-800 px-2 py-1 rounded text-slate-300 font-bold border border-white/5 uppercase">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
                 lucide.createIcons();
-            } catch (err) {
-                out.innerHTML = `
-                    <div class="col-span-2 p-10 text-center border border-red-500/20 rounded-2xl bg-red-500/5">
-                        <i data-lucide="wifi-off" class="w-10 h-10 text-red-500 mx-auto mb-2"></i>
-                        <p class="text-red-500 font-bold uppercase tracking-widest text-xs">Uplink Error: Analysis Failed</p>
-                    </div>`;
+            } catch (error) {
+                console.error(error);
+                emptyState.innerHTML = `<i data-lucide="wifi-off" class="w-12 h-12 text-red-500 mb-4"></i><p class="text-red-500 font-black uppercase">Sync Failed</p>`;
+                emptyState.classList.remove('hidden');
                 lucide.createIcons();
             } finally {
-                loader.classList.add('hidden');
-                loader.classList.remove('flex');
+                btn.classList.remove('loading');
                 btn.disabled = false;
+                intelOutput.classList.remove('scan-effect');
             }
         };
 
-        document.getElementById('search').addEventListener('input', renderGrid);
-        initApp();
+        document.getElementById('heroSearch').addEventListener('input', renderList);
+        init();
     </script>
 </body>
 </html>

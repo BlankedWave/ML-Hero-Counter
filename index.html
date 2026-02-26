@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB | NEURAL-LINK PRO 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #010409;
+            color: #e6edf3;
+            overflow: hidden;
+        }
+
+        .neural-bg {
+            background-image: radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        .glass-panel {
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(48, 54, 61, 0.8);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+        }
+
+        .hero-node {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .hero-node:hover {
+            border-color: #58a6ff;
+            background: rgba(88, 166, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .hero-active {
+            border-color: #58a6ff !important;
+            background: rgba(88, 166, 255, 0.15) !important;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #58a6ff, transparent);
+            animation: scan 3s linear infinite;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="neural-bg h-screen w-screen flex flex-col p-4">
+
+    <header class="flex justify-between items-center mb-6 px-4 bg-black/20 py-3 rounded-2xl border border-white/5">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                <i data-lucide="brain-circuit" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-white">NEURAL_LINK <span class="text-blue-500 text-sm">v2026.FANDOM</span></h1>
+                <div class="flex items-center gap-2">
+                    <span id="connIndicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <p id="connText" class="text-[9px] uppercase tracking-widest text-slate-500 font-bold">Local Wiki Cache Active</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex gap-4 items-center">
+            <div class="hidden sm:block text-right">
+                <div class="text-[10px] text-slate-500 font-bold">MANUAL OVERRIDE</div>
+                <div class="text-xs text-blue-400 font-mono">INTEL_VER_0226</div>
+            </div>
+            <div class="divider divider-horizontal mx-0"></div>
+            <div id="heroTotal" class="text-2xl font-black text-white">000</div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex gap-6 overflow-hidden">
+        <section class="w-full md:w-[380px] flex flex-col gap-4">
+            <div class="glass-panel rounded-2xl p-4 flex flex-col gap-4 flex-1 overflow-hidden">
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                    <input id="search" type="text" placeholder="SEARCH IDENTITY..." class="w-full bg-black/60 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-sm focus:border-blue-500 outline-none transition-all text-white">
+                </div>
+                
+                <div class="flex gap-1 overflow-x-auto pb-2 custom-scroll">
+                    <button onclick="setRole('ALL')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">ALL</button>
+                    <button onclick="setRole('Tank')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">TANK</button>
+                    <button onclick="setRole('Assassin')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">ASN</button>
+                    <button onclick="setRole('Mage')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">MAGE</button>
+                    <button onclick="setRole('Marksman')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">MM</button>
+                    <button onclick="setRole('Fighter')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">FIG</button>
+                    <button onclick="setRole('Support')" class="role-btn btn btn-xs btn-outline border-slate-700 rounded-lg">SUP</button>
+                </div>
+
+                <div id="heroGrid" class="grid grid-cols-3 gap-3 overflow-y-auto custom-scroll pr-2">
+                    <!-- Loaded via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="hidden md:flex flex-1 flex-col gap-4">
+            <div id="displayArea" class="glass-panel rounded-3xl p-10 flex items-center gap-10 relative overflow-hidden h-[320px]">
+                <div class="scan-line"></div>
+                <div id="heroBackdrop" class="absolute right-0 top-0 h-full w-[60%] opacity-10 pointer-events-none bg-center bg-cover transition-all duration-700 grayscale"></div>
+                
+                <div class="relative z-10">
+                    <div class="w-40 h-40 rounded-2xl border-2 border-blue-500/20 p-1 bg-slate-900 shadow-2xl overflow-hidden group">
+                        <img id="heroPortrait" src="https://ui-avatars.com/api/?name=?&background=0d1117&color=58a6ff" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span id="heroRole" class="text-[10px] font-black bg-blue-500/10 text-blue-400 border border-blue-500/30 px-3 py-1 rounded-full uppercase tracking-tighter">SELECT HERO</span>
+                        <span id="heroLane" class="text-[10px] font-black bg-purple-500/10 text-purple-400 border border-purple-500/30 px-3 py-1 rounded-full uppercase tracking-tighter">-</span>
+                    </div>
+                    <h2 id="heroName" class="text-6xl font-black italic tracking-tighter uppercase mb-4 text-white drop-shadow-md">TARGET_UNK</h2>
+                    
+                    <div class="flex gap-4">
+                        <button id="analyzeBtn" disabled onclick="getCounterData()" class="btn btn-primary btn-md rounded-xl px-10 border-none bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-900/20">
+                            <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+                            GENERATE COUNTERS
+                        </button>
+                        <div id="loadingStatus" class="hidden items-center gap-2 text-blue-400 text-xs font-bold animate-pulse">
+                            <span class="loading loading-spinner loading-xs"></span>
+                            PROCESSING...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="counterOutput" class="flex-1 grid grid-cols-2 gap-4 overflow-y-auto custom-scroll">
+                <div class="col-span-2 flex flex-col items-center justify-center opacity-20 py-20">
+                    <i data-lucide="database" class="w-16 h-16 mb-4"></i>
+                    <p class="font-bold tracking-widest text-sm uppercase">Neural Link Idle. Select Target Above.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        // Manually updated list based on Mobile Legends Fandom Wiki (Latest 2026 data)
+        const HEROES_CACHE = [
+            { id: 1, name: "Lukas", role: "Fighter", lane: "Exp Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/c8/Hero_Lukas.png" },
+            { id: 2, name: "Suyou", role: "Assassin/Fighter", lane: "Exp Lane/Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/a/af/Hero_Suyou.png" },
+            { id: 3, name: "Zhuxin", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/87/Hero_Zhuxin.png" },
+            { id: 4, name: "Chip", role: "Support/Tank", lane: "Roam", img: "https://static.wikia.nocookie.net/mobile-legends/images/7/75/Hero_Chip.png" },
+            { id: 5, name: "Cici", role: "Fighter", lane: "Exp Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Hero_Cici.png" },
+            { id: 6, name: "Nolan", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/4/4c/Hero_Nolan.png" },
+            { id: 7, name: "Ixia", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/07/Hero_Ixia.png" },
+            { id: 8, name: "Novaria", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/8e/Hero_Novaria.png" },
+            { id: 9, name: "Arlott", role: "Fighter/Assassin", lane: "Exp Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/4/4b/Hero_Arlott.png" },
+            { id: 10, name: "Fredrinn", role: "Tank/Fighter", lane: "Jungle/Exp", img: "https://static.wikia.nocookie.net/mobile-legends/images/f/f6/Hero_Fredrinn.png" },
+            { id: 11, name: "Joy", role: "Assassin", lane: "Jungle/Mid", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/ca/Hero_Joy.png" },
+            { id: 12, name: "Edith", role: "Tank/Marksman", lane: "Roam/Gold", img: "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Hero_Edith.png" },
+            { id: 13, name: "Yve", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/c5/Hero_Yve.png" },
+            { id: 14, name: "Beatrix", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Hero_Beatrix.png" },
+            { id: 15, name: "Valentina", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/c/cc/Hero_Valentina.png" },
+            { id: 16, name: "Julian", role: "Fighter/Mage", lane: "Jungle/Exp", img: "https://static.wikia.nocookie.net/mobile-legends/images/e/e0/Hero_Julian.png" },
+            { id: 17, name: "Ling", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/7/7b/Hero_Ling.png" },
+            { id: 18, name: "Fanny", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/9/90/Hero_Fanny.png" },
+            { id: 19, name: "Gusion", role: "Assassin/Mage", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Hero_Gusion.png" },
+            { id: 20, name: "Hayabusa", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Hero_Hayabusa.png" },
+            { id: 21, name: "Lancelot", role: "Assassin", lane: "Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/03/Hero_Lancelot.png" },
+            { id: 22, name: "Paquito", role: "Fighter", lane: "Jungle/Exp", img: "https://static.wikia.nocookie.net/mobile-legends/images/1/10/Hero_Paquito.png" },
+            { id: 23, name: "Chou", role: "Fighter", lane: "Exp/Roam", img: "https://static.wikia.nocookie.net/mobile-legends/images/a/a8/Hero_Chou.png" },
+            { id: 24, name: "Selena", role: "Assassin/Mage", lane: "Roam/Mid", img: "https://static.wikia.nocookie.net/mobile-legends/images/d/df/Hero_Selena.png" },
+            { id: 25, name: "Wanwan", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/01/Hero_Wanwan.png" },
+            { id: 26, name: "Karrie", role: "Marksman", lane: "Gold Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/6/69/Hero_Karrie.png" },
+            { id: 27, name: "Lunox", role: "Mage", lane: "Mid/Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/2/23/Hero_Lunox.png" },
+            { id: 28, name: "Benedetta", role: "Assassin", lane: "Exp/Jungle", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/87/Hero_Benedetta.png" },
+            { id: 29, name: "Lylia", role: "Mage", lane: "Mid Lane", img: "https://static.wikia.nocookie.net/mobile-legends/images/8/84/Hero_Lylia.png" },
+            { id: 30, name: "Tigreal", role: "Tank", lane: "Roam", img: "https://static.wikia.nocookie.net/mobile-legends/images/0/02/Hero_Tigreal.png" }
+        ];
+
+        let selectedHero = null;
+        let currentRole = "ALL";
+        const apiKey = "";
+
+        function initApp() {
+            renderGrid();
+            document.getElementById('heroTotal').innerText = HEROES_CACHE.length.toString().padStart(3, '0');
+            lucide.createIcons();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('heroGrid');
+            const query = document.getElementById('search').value.toLowerCase();
+            
+            const filtered = HEROES_CACHE.filter(h => {
+                const matchesRole = currentRole === "ALL" || h.role.includes(currentRole);
+                const matchesSearch = h.name.toLowerCase().includes(query);
+                return matchesRole && matchesSearch;
+            }).sort((a,b) => a.name.localeCompare(b.name));
+
+            grid.innerHTML = filtered.map(h => `
+                <div onclick="selectHero('${h.id}')" 
+                     class="hero-node glass-panel rounded-xl p-2 cursor-pointer text-center group ${selectedHero?.id === h.id ? 'hero-active' : ''}">
+                    <div class="aspect-square rounded-lg overflow-hidden bg-slate-800 mb-2 border border-white/5">
+                        <img src="${h.img}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                             onerror="this.src='https://ui-avatars.com/api/?name=${h.name}&background=1e293b&color=3b82f6'">
+                    </div>
+                    <div class="text-[9px] font-black uppercase tracking-tighter truncate text-slate-400 group-hover:text-white">${h.name}</div>
+                </div>
+            `).join('');
+        }
+
+        window.selectHero = (id) => {
+            const h = HEROES_CACHE.find(x => x.id == id);
+            selectedHero = h;
+            
+            document.getElementById('heroName').innerText = h.name;
+            document.getElementById('heroRole').innerText = h.role;
+            document.getElementById('heroLane').innerText = h.lane;
+            document.getElementById('heroPortrait').src = h.img;
+            document.getElementById('heroBackdrop').style.backgroundImage = `url(${h.img})`;
+            document.getElementById('analyzeBtn').disabled = false;
+            
+            renderGrid();
+        };
+
+        window.setRole = (role) => {
+            currentRole = role;
+            document.querySelectorAll('.role-btn').forEach(b => {
+                b.classList.remove('btn-primary');
+                if(b.innerText.includes(role.toUpperCase().substring(0,3))) b.classList.add('btn-primary');
+            });
+            renderGrid();
+        };
+
+        window.getCounterData = async () => {
+            const out = document.getElementById('counterOutput');
+            const loader = document.getElementById('loadingStatus');
+            const btn = document.getElementById('analyzeBtn');
+
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+            btn.disabled = true;
+            out.innerHTML = '';
+
+            const systemPrompt = `You are a high-level MLBB Analyst. For the hero: ${selectedHero.name}. 
+            Provide 2-4 professional-grade counter picks. 
+            Return JSON ONLY: { "results": [{ "name": "Hero Name", "why": "Explanation focusing on mechanics", "item": "Must-buy counter item" }] }`;
+
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Best meta counters for ${selectedHero.name}` }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
+                });
+
+                const data = await res.json();
+                const json = JSON.parse(data.candidates[0].content.parts[0].text);
+
+                out.innerHTML = json.results.map(r => `
+                    <div class="glass-panel rounded-2xl p-6 border-t-2 border-blue-500/30 hover:bg-white/5 transition-all">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-xl font-black italic uppercase text-white">${r.name}</h4>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">${r.why}</p>
+                        <div class="flex items-center gap-3 bg-blue-500/5 p-3 rounded-xl border border-blue-500/10">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i>
+                            <div>
+                                <div class="text-[8px] font-black text-blue-500 uppercase">Strategic Item</div>
+                                <div class="text-xs font-bold text-slate-200">${r.item}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                lucide.createIcons();
+            } catch (err) {
+                out.innerHTML = `
+                    <div class="col-span-2 p-10 text-center border border-red-500/20 rounded-2xl bg-red-500/5">
+                        <i data-lucide="wifi-off" class="w-10 h-10 text-red-500 mx-auto mb-2"></i>
+                        <p class="text-red-500 font-bold uppercase tracking-widest text-xs">Uplink Error: Analysis Failed</p>
+                    </div>`;
+                lucide.createIcons();
+            } finally {
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+                btn.disabled = false;
+            }
+        };
+
+        document.getElementById('search').addEventListener('input', renderGrid);
+        initApp();
+    </script>
+</body>
+</html>
